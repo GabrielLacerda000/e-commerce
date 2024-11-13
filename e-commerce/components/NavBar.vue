@@ -16,7 +16,7 @@
         <div class="hidden md:flex space-x-6">
           <NuxtLink to="/" class="hover:text-blue-600">Home</NuxtLink>
           <NuxtLink to="/about" class="hover:text-blue-600">About</NuxtLink>
-          <NuxtLink to="/contact" class="hover:text-blue-600">Contact</NuxtLink>
+          <NuxtLink to="/product/create" class="hover:text-blue-600">Create</NuxtLink>
         </div>
   
         <!-- Barra de busca e ícone de carrinho -->
