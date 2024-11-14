@@ -1,28 +1,22 @@
 <script setup lang="ts">
-import { useApi } from '~/composables/useApi'
+import { useGetProductById, useUpdateProduct } from '~/services/productService';
 import type { Product } from '~/types/Product'
 
 const route = useRoute()
 
-const productId = route.params.id 
+const productId = route.params.id as string
 
-const form = ref({
-  name: '',
-  description: '',
-  price: 0,
-  stock: 0
+const { data: product, error } = await useGetProductById<Product>(productId)
 
+onMounted(() => {
+  if (error.value) {
+    navigateTo('/404')
+  }
 })
-
-const { data: product } = useApi<Product>(`products/${productId}`)
-
 
 const updateProduct = async () => {
   try {
-    await useApi<Product>(`/products/${productId}`, {
-      method: 'PUT',
-      body: form.value,
-    })
+    await useUpdateProduct<Product>(productId, {body: product.value})
     navigateTo(`/product/${productId}`)
   } catch (err) {
     console.error('Erro updating product:', err)

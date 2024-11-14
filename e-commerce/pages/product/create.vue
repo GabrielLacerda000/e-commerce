@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useApi } from '~/composables/useApi'
+import { useCreateProduct } from '~/services/productService';
 // import { createProduct } from '~/services/productService';
 import type { Product } from '~/types/Product'
-
-// const { data: product } = useApi<Product>(`products/${productId}`)
 
 const product = ref<Product>({
     id: 0,
@@ -19,10 +17,7 @@ const loading = ref(false)
 const createProduct = async () => {
   try {
     loading.value = true
-    await useApi<Product>('products', {
-      method: 'POST',
-      body: product.value,
-    })
+    await useCreateProduct<Product>({body: product.value})
   } catch (err) {
     error.value = 'An error occurred while creating the product.'
     console.error(err)
